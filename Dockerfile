@@ -1,11 +1,7 @@
-FROM alpine
+FROM maven:3.6.3-jdk-11-slim
 WORKDIR /root/runJavaProject
-COPY Rundocker.java /root/runJavaProject
+COPY . /root/runJavaProject
 
-RUN apk add openjdk8
-ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
-ENV PATH $PATH:$JAVA_HOME/bin
+RUN mvn package
 
-RUN javac Rundocker.java
-
-ENTRYPOINT java Rundocker
+ENTRYPOINT java -jar target/my-project.jar
